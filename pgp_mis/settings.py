@@ -29,7 +29,7 @@ if not DEBUG:
 else:
     SECRET_KEY = '_!q(koxzq_*94f9v+)(n++vp_q$31_9y$j4r@357ttzq)1116+'
 
-ALLOWED_HOSTS = ['localhost']
+ALLOWED_HOSTS = ['localhost', 'pgp-mis.herokuapp.com']
 
 
 # Application definition
