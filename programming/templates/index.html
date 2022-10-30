@@ -1,0 +1,184 @@
+{% extends "base.html" %}
+{% block page_content %}
+
+{% if user_profile %}
+<div class="container">
+	<div class="row">
+		<div class="col-12 my-4">
+			<h1>Welcome, {{ user_profile }}</h1>
+		</div>
+	</div>
+</div>
+{% endif %}
+
+{% if user_profile.person_type == 'STAFF' %}
+
+<div class="container">
+	<div class="row">
+		<div class="col-12 col-lg-4">
+			<div class="card">
+				<div class="card-header">
+					<p class="h3">Volunteer Application</p>
+				</div>
+				<div class="card-body">
+					{% if user_profile.get_applications %}
+						{% for application in user_profile.get_applications %}
+							<div class="card">
+								<div class="card-header">{{ application }}</div>
+								<div class="card-body">
+									<p>{{ application.get_status_display }}</p>
+									{% if application.offer %}
+										<div class='alert alert-info'><h3>Application Offer</h3>
+											{% if application.offer.status != 'PEN' %}<p>You have {{ application.offer.get_status_display|lower }} this offer</p>{% endif %}
+											<p><a href="{% url 'staffing:staffingApplicationOfferUpdate' application.pk %}">
+												{% if application.offer.status == 'PEN' %}
+													Review this offer
+												{% elif application.offer.status == 'ACC' or application.offer.status == 'REJ' %}
+													Change your acceptance of this offer
+												{% endif %}
+											</a></p>
+
+										</div>
+									{% endif %}
+								</div>
+							</div>
+						{% endfor %}
+					{% else %}
+						<p>You have no previous applications.</p>
+					{% endif %}
+					<hr>
+					{% if available_events %}
+						{% if available_event_applications %}
+							Make a new application for:
+							<ul>
+								{% for event in available_event_applications %}
+								<li><a href="{% url 'staffing:staffingCreateApplication' event.pk %}">{{ event }}</a></li>
+								{% endfor %}
+							</ul>
+						{% else %}
+							<p>You have an application for all available events.</p>
+						{% endif %}
+					{% else %}
+						<p>There are currently no events open for application.</p>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+		<div class="col-12 col-lg-4">
+			<div class="card mb-4">
+				<div class="card-header">
+					<h3>Quick Links</h3>
+				</div>
+				<div class="card-body">
+					<ul>
+					{% for q in quick_links %}
+						<li>
+							{% if q.link %}<a href="{{ q.link }}">{{ q.title }}</a>
+							{% else %}{{ q.title }}{% endif %}
+						</li>
+					{% empty %}
+						<p><em>No quick links have been set up, please contact an IT person.</em></p>
+					{% endfor %}
+					</ul>
+				</div>
+			</div>
+			{% if user_is_director %}
+			<div class="card">
+				<div class="card-header"><h3>Director Areas</h3></div>
+				<div class="card-body">
+					<ul>
+						<li><a href="{% url 'staffing:staffingApplicationList' %}">Review volunteer applications</a></li>
+						<li><a href="{% url 'programming:programmingShowPending' %}">View shows awaiting offers</a></li>
+					</ul>
+				</div>
+			</div>
+			{% endif %}
+		</div>
+		<div class="col-12 col-lg-4">
+			<div class="card">
+				<div class="card-header">
+					<p class="h3">Programme</p>
+				</div>
+				<div class="card-body">
+					<h4>Shows</h4>
+					Members can vote and comment on shows before we programme them for the festival.
+					<br><a href="{% url 'programming:programmingShowList' %}">Head to the shows</a>
+					<hr>
+					<h4>Timeline</h4>
+					<p><span>Vertical Timeline</span></p>
+					<p><span>Horizontal Timeline (for printing)</span></p>
+					<hr>
+					<h4>Box Office</h4>
+					<small>You'll need your VIA login for these.</small>
+					<p><span>VIA homepage</span></p>
+					<p><span>VIA Reports</span></p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% elif user_profile.person_type == 'COMPY' %}
+<div class="container">
+	<div class="row">
+		<div class="col-12 col-lg-8">
+			<div class="card">
+				<div class="card-header">
+					<h2>Your shows</h2>
+				</div>
+				<div class="card-body">
+					{% if user_profile.get_shows %}
+						{% if user_profile.get_shows.lead %}
+						<p class="lead">You are the lead contact on:</p>
+						<ul>
+							{% for s in user_profile.get_shows.lead %}
+							<li><a href="{% url 'programming:programmingShowDetail' s.pk %}">{{ s }}</a></li>
+							{% endfor %}
+						</ul>
+						{% endif %}
+						{% if user_profile.get_shows.listed %}
+						<p class="lead">You are on the team for:</p>
+						<ul>
+							{% for s in user_profile.get_shows.listed %}
+							<li><a href="{% url 'programming:programmingShowDetail' s.pk %}">{{ s }}</a></li>
+							{% endfor %}
+						</ul>
+						{% endif %}
+					{% else %}
+						<p>
+							You don't have any shows yet.
+						</p>
+					{% endif %}
+						<hr>
+						<p>{% if available_events %}
+						We are accepting submissions for {% for e in available_events %}<a href="{% url 'programming:programmingCreateShow' e.pk %}">{{ e }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}
+						{% else %}
+						We are not currently accepting applications. Please contact us if you think this is an error.
+						{% endif %}</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-12 col-lg-4">
+			<div class="card">
+				<div class="card-header">
+					<h3>Need help?</h3>
+				</div>
+				<div class="card-body">
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+					consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+					cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% else %}
+
+Your profile hasn't been setup properly. Please contact an IT person.
+	
+{% endif %}
+
+{% endblock %}

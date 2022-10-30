@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block page_title %}Make {{ show }} an offer {% endblock %}
+
+{% block page_content %}
+<div class="container">
+	<div class="row">
+		<div class="col-12 col-md-10 col-lg-8 offset-md-1 ">
+			<h1>Make {{ show }} an offer</h1>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-12 col-lg-10 offset-lg-1">
+			<h2>Available slots</h2>
+			{% if show.get_slots %}
+				<table class="table table-condensed">
+					<thead>
+						<tr>
+							<th>Preference</th>
+							<th>Venue</th>
+							<th>Slot start</th>
+							<th>Show start</th>
+							<th>Show end</th>
+							<th>Slot end</th>
+							<th>Select</th>
+						</tr>
+					</thead>
+					<tbody>
+					{% for slot in show.get_slots %}
+						<tr>
+							<td># {{ slot.slot_preference }}</td>
+							<td>{{ slot.venue }}</td>
+							<td>{{ slot.slot_timings.slot_start_time | date:"G:i" }}</td>
+							<td>{{ slot.show_start_time }}</td>
+							<td>{{ slot.show_end_time }}</td>
+							<td>{{ slot.slot_timings.slot_end_time | date:"G:i" }}</td>
+							<td><a href="{% url 'programming:programmingSlotOffer' pk=show.pk slot_pk=slot.pk %}">Make an offer</a></td>
+						</tr>
+					</tbody>
+					{% endfor %}
+				</table>
+			{% endif %}
+		</div>
+	</div>
+</div>
+{% endblock %}

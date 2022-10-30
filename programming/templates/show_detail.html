@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+
+{% block page_title %}{{ show.show_title }}{% endblock %}
+
+{% block page_content %}
+
+<div class="container">
+	<div class="row">
+		<div class="col-12">
+			<h1 class="text-center">{{ show }}</h1>
+		</div>
+	</div>
+	<div class="row my-4">
+		<div class="col-12 col-md-8">
+			<div class="card">
+				<div class="card-header">
+					<h2>Show Information {% if can_edit %}<a href="{% url 'programming:programmingShowUpdate' show.pk %}" class="btn btn-primary">Edit</a>{% endif %}</h2>
+				</div>
+				<div class="card-body">
+					<p>Outline: {{ show.outline }}</p>
+					<p>Motivation: {{ show.motivation }}</p>
+					<p>Funding: {{ show.funding }}</p>
+					<h2>Marketing Information</h2>
+					<p>Marketing Copy (Short): {{ show.marketing_copy_short }}</p>
+					<p>Marketing Copy (Long): {{ show.marketing_copy_long }}</p>
+					<h2>Backstage Information</h2>
+					<p>Set outline: {{ show.set_outline }}</p>
+					<p>Tech outline: {{ show.tech_outline }}</p>
+					<h2>People</h2>
+					<p>Cast size: {{ show.cast_size }}</p>
+					<p>Crew size: {{ show.crew_size }}</p>
+					<h2>Timings</h2>
+					<p>Duration: {{ show.duration }}</p>
+					<p>Get-In: {{ show.get_in_dur }}</p>
+					<p>Get-Out: {{ show.get_out_dur }}</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-12 col-md-4">
+			<div class="card mb-4">
+				<div class="card-header">
+					<h2>Application Status</h2>
+				</div>
+				<div class="card-body">
+					<p>{{ show.get_status_display }}</p>
+					{% if show.offer %}
+						<div class="alert alert-info">
+							<h3>Offer</h3>
+							<p>{{ show.offer }}</p>
+							{% if user_profile.person_type == 'COMPY' %}
+								<a href="{% url 'programming:programmingOfferUpdate' show.pk %}">
+									{% if show.offer.status == 'PEN' %}Accept or reject this offer 
+									{% elif show.offer.status == 'ACC' %}Withdraw this offer
+									{% elif show.offer.status == 'REJ' %}Accept this offer{% endif %}
+								</a>
+
+							{% elif user_profile.person_type == 'STAFF' %}
+								{% if show.offer.status == 'PEN' %}<p><em>Waiting on the company...</em></p>{% endif %}
+							{% endif %}
+						</div>
+					{% endif %}
+				</div>
+			</div>
+			<div class="card">
+				<div class="card-header">
+					<h2>Company Information {% if can_edit and show.company %}<a class="btn btn-primary" href="{% url 'programming:programmingCompanyForm' show.company.pk %}">Edit</a>{% endif %}</h2>
+				</div>
+				<div class="card-body">
+					<p>Company name: {{ show.company }}</p>
+					<p>Lead contact: {{ show.lead_contact }}</p>
+					<p>Company level: {{ show.get_level_display }}</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row my-4">
+		<div class="col-12">
+			<div class="card">
+				<div class="card-header">
+					<h2>Slots</h2>
+				</div>
+				<div class="card-body">
+					{% if show.get_slots %}
+						<table class="table table-condensed">
+							<thead>
+								<tr>
+									<th>Preference</th>
+									<th>Venue</th>
+									<th>Slot start</th>
+									<th>Show start</th>
+									<th>Show end</th>
+									<th>Slot end</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+							{% for slot in show.get_slots %}
+								<tr>
+									<td># {{ slot.slot_preference }}</td>
+									<td>{{ slot.venue }}</td>
+									<td>{{ slot.slot_timings.slot_start_time | date:"G:i" }}</td>
+									<td>{{ slot.show_start_time }}</td>
+									<td>{{ slot.show_end_time }}</td>
+									<td>{{ slot.slot_timings.slot_end_time | date:"G:i" }}</td>
+									<td>Move Up / Down</td>
+								</tr>
+							</tbody>
+							{% endfor %}
+						</table>
+					{% endif %}
+					{% if can_edit %}<p><a href="{% url 'programming:programmingSlotCreation' show.pk %}">Add a slot</a></p>{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+	{% if user_profile.person_type == 'STAFF' %}
+	<div class="row my-4">
+		<div class="col-12 col-lg-6">
+			<div class="card">
+				<div class="card-header">
+					<h2>Votes</h2>
+				</div>
+				<div class="card-body">
+					<p>{{ show.get_votes }}</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-12 col-lg-6">
+			<div class="card">
+				<div class="card-header">
+					<h2>Comments</h2>
+				</div>
+				<div class="card-body">
+					<p>{{ show.get_comments }}</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	{% endif %}
+</div>
+
+{% endblock %}

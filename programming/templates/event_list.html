@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block page_title %}Event List{% endblock %}
+
+{% block page_content %}
+
+<div class="container">
+	<div class="row">
+		<div class="col-12 col-md-10 col-lg-8 offset-md-1 offset-lg-2">
+			{% if event_list %}
+			<h1 class="text-center">All events</h1>
+			<ul>
+				{% for event in event_list %}
+				<li><a href="{% url 'programming:programmingEventDetail' event.pk %}">{{ event }}</a></li>
+				{% endfor %}
+			</ul>
+			{% else %}
+			<p class="text-center"><em>There are no events</em></p>
+			{% endif %}
+		</div>
+	</div>
+</div>
+
+
+{% endblock %}

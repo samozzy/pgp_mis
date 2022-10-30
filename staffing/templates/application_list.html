@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block page_title %}Application Form{% endblock %}
+
+{% block page_content %}
+<div class="container">
+	<div class="row">
+		<div class="col-12 col-lg-10 offset-lg-1">
+			<h1>Volunteer Applications for {{ event }}</h1>
+			<table class="table table-condensed">
+				<thead>
+					<tr>
+						<td>Name</td>
+						<td>Roles desired</td>
+						<td>Roles willing</td>
+						<td>Has management roles</td>
+						<td>Make offer</td>
+					</tr>
+				</thead>
+				<tbody>
+					{% for app in applications %}
+						<tr>
+							<td>{{ app.person }}</td>
+							<td>{{ app.roles_desired.all|join:", "}}</td>
+							<td>{{ app.roles_willing.all|join:", " }}</td>
+							<td>{{ app.has_management_roles|yesno:"Yes,No" }}</td>
+							<td>Application: {{ app.get_status_display }} 
+								<br>Offer: {{ app.offer.get_status_display }}
+								<br><a href="{% url 'staffing:staffingApplicationDetail' app.pk %}">Review Application</a></td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

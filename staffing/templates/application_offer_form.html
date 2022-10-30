@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block page_title %}Offer Confirmation{% endblock %}
+
+{% block page_content %}
+<div class="container">
+	<div class="row">
+		<div class="col-12 col-md-10 col-lg-8 offset-md-1 ">
+			<h1>{% if create %}Make an offer{% else %}Offer Confirmation{% endif %}<br>
+				<small>{{ application }}</small>
+			</h1>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-12 col-lg-10 offset-lg-1">
+			<form method="post" action="">
+				{% csrf_token %}
+				{{ form.errors }}
+			{% if create %}
+				<h3>Applied Availability:</h3>
+				{{ application.weeks_available.all|join:", <br>" }}
+
+				<h3>Offer weeks:</h3>
+				{{ form.as_table }} 
+
+			{% else %}
+				{% if user_is_director %}
+					<p><strong>You are authorised to accept this offer on behalf of the volunteer. Typically this is something the volunteer should do, so please exercise discretion.</strong></p>
+				{% endif %}
+
+				<p>You have been offered the following:</p>
+				<p>{{ offer.weeks.all|join:", <br>" }}</p>
+
+				<div class="row form-group mb-2">
+					<div class="col-12 mx-auto">
+						<div class="text-left text-primary">Accept or reject using the menu below</div>
+						{% if field.errors %}<div class="alert alert-danger">{{ field.errors.as_ul }}</div>{% endif %}
+						{{ field.help_text }}
+						{% render_field form.status class+="form-control" placeholder+=field.label %}
+						<div class="d-none">{{ form.weeks }}</div>
+					</div>
+				</div>
+			{% endif %}
+
+				<div class="row my-2">
+					<div class="col-12 col-sm-10 col-lg-8 mx-auto">
+					<button type="submit" value="login" class="btn btn-success btn-lg w-100">
+						{% if create %}Make the offer{% else %}Save{% endif %}</button>
+					<input type="hidden" name="next" value="{{ next }}" />
+					</div>
+				</div>
+
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock %}

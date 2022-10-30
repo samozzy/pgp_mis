@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block page_title %}Permission Denied{% endblock %}
+
+{% block page_content %}
+<div class="container">
+	<div class="row">
+		<div class="col-12 col-md-10 col-lg-8 offset-md-1 offset-lg-2">
+			<h1>Permission denied</h1>
+			<p>Sorry, you don't have access to this page. This might be because you're trying to access a staff-only area of the site.</p>
+			<p>If you think this might be an error, please get in touch. You can also try logging out and trying a different account.</p>
+			<p>In the meantime, try heading back <a href="{% url 'programming:programmingDashboard' %}">to the dashboard</a>.</p>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+
+{% block page_content %}
+
+<div class="container">
+	{% if user.is_authenticated %}
+		<div class="row">
+			<div class="col-12 col-md-10 col-lg-8 offset-md-1 offset-lg-2">
+				<h1>You are already registered</h1>
+				<p>Let's try going back to the <a href="{% url 'programming:programmingDashboard' %}">dashboard</a></p>
+			</div>
+		</div>
+	{% else %}
+		<div class="row">
+			<div class="col-12 col-md-10 col-lg-8 offset-md-1 offset-lg-2">
+				<h1>Register</h1>
+
+				<form method="post" action="{% url 'userRegister' %}">
+					{% csrf_token %}
+					{% for field in form %}
+						<div class="row form-group mb-2">
+							<div class="col-12 mx-auto">
+								{% if field.errors %}<div class="alert alert-danger">{{ field.errors.as_ul }}</div>{% endif %}
+								{{ field.help_text }}
+								<div class="text-left text-primary">{{ field.label_tag|title }}</div>
+								{% render_field field class+="form-control" placeholder+=field.label %}
+							</div>
+						</div>
+					{% endfor %}
+
+					<div class="row my-2">
+						<div class="col-12 col-sm-10 col-lg-8 mx-auto">
+						<button type="submit" value="login" class="btn btn-primary btn-lg w-100">Register</button>
+						<input type="hidden" name="next" value="{{ next }}" />
+						</div>
+					</div>
+
+				</form>
+			</div>
+		</div>
+	{% endif %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block page_title %}Add a slot for {{ show.show_title }}{% endblock %}
+
+{% block page_content %}
+<div class="container">
+	<div class="row">
+		<div class="col-12 col-md-10 col-lg-8 offset-md-1 offset-lg-2">
+			<h1>Add a slot for '{{ show.show_title }}'</h1>
+			<form method="post" action="">
+				{% csrf_token %}
+				{% for field in form %}
+					<div class="row form-group mb-2">
+						<div class="col-12 mx-auto">
+							<div class="text-left text-primary">{{ field.label_tag|title }}</div>
+							{% if field.errors %}<div class="alert alert-danger">{{ field.errors.as_ul }}</div>{% endif %}
+							{{ field.help_text }}
+							{% if field.label == 'Week' %}
+								{% render_field field %}
+							{% else %}
+								{% render_field field class+="form-control" placeholder+=field.label %}
+							{% endif %}
+						</div>
+					</div>
+				{% endfor %}
+
+				<div class="row my-2">
+					<div class="col-12 col-sm-10 col-lg-8 mx-auto">
+					<button type="submit" value="login" class="btn btn-primary btn-lg w-100">Add slot</button>
+					<input type="hidden" name="next" value="{{ next }}" />
+					</div>
+				</div>
+
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock %}

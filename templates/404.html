@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block page_title %}Page not found{% endblock %}
+
+{% block page_content %}
+<div class="container">
+	<div class="row">
+		<div class="col-12 col-md-10 col-lg-8 offset-md-1 offset-lg-2">
+			<h1>Page not found</h1>
+			<p>Sorry, we can't find that. Please check for any typos, or try going back to where you were and trying again.</p>
+			<p>If you think this might be an error, please get in touch.</p>
+			<p>In the meantime, try heading back <a href="{% url 'programming:programmingDashboard' %}">to the dashboard</a>.</p>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

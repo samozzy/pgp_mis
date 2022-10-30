@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block page_title %}Personal Details{% endblock %}
+
+{% block page_content %}
+
+<div class="container">
+	<div class="row">
+		<div class="col-12 col-md-10 col-lg-8 offset-md-1 offset-lg-2">
+			<h1>{{ page_heading|default:"We just need some personal details from you"}}</h1>
+			<p>{% if use_form %}Edit your personal details {% else %}Your personal details are below{% endif %}</p>
+			{% if use_form %}
+			<form method="post" action="">
+				{% csrf_token %}
+				{{ form.non_field_errors }}
+				{% if form.errors %}
+					{{ form.errors.as_ul }}
+				{% endif %}
+			{% endif %}
+				<table class="table">
+					<tr>
+						<td>First name {% if use_form and form.forename.help_text %}<br>{{ form.forename.help_text }}{% endif %}</td>
+						<td>{% if use_form %}{% render_field form.forename class+="form-control" %}{% else %}{{ user_profile.forename }}{% endif %}</td>
+					</tr>
+					<tr>
+						<td>Middle name(s) {% if use_form and form.middle_name.help_text %}<br>{{ form.middle_name.help_text }}{% endif %}</td>
+						<td>{% if use_form %}{% render_field form.middle_name class+="form-control" %}{% else %}{{ user_profile.middle_name }}{% endif %}</td>
+					</tr>
+					<tr>
+						<td>Surname {% if use_form and form.surname.help_text %}<br>{{ form.surname.help_text }}{% endif %}</td>
+						<td>{% if use_form %}{% render_field form.surname class+="form-control" %}{% else %}{{ user_profile.surname }}{% endif %}</td>
+					</tr>
+					<tr>
+						<td>Pronouns {% if use_form and form.pronouns.help_text %}<br>{{ form.pronouns.help_text }}{% endif %}</td>
+						<td>{% if use_form %}{% render_field form.pronouns class+="form-control" %}{% else %}{{ user_profile.pronouns }}{% endif %}</td>
+					</tr>
+					{% if use_form and form.person_type %}
+					<tr>
+						<td><strong>Are you registering as:</strong></td>
+						<td>
+							{% for field in form.person_type %}
+								{% if forloop.counter < 3 %}
+									{{ field.choice_value }}
+									<div class="form-check">
+										{{ field.tag }}
+										<label class="form-check-label" for="{{ field.id_for_label }}">
+											{{ field.choice_label }}
+										</label>
+									</div>
+								{% endif %}
+							{% endfor %}
+						</td>
+					</tr>
+					{% endif %}
+
+				</table>
+			{% if use_form %}
+				<div class="row my-2">
+					<div class="col-12 col-sm-10 col-lg-8 mx-auto">
+					<button type="submit" value="login" class="btn btn-primary w-100">Save</button>
+					<input type="hidden" name="next" value="{{ next }}" />
+					</div>
+				</div>
+			</form>
+			{% else %}
+				<a href="{% url 'people:personUpdate' %}" class="btn btn-primary">Edit</a>
+			{% endif %}
+		</div>
+	</div>
+</div>
+
+{% endblock %}

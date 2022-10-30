@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+
+{% block page_content %}
+
+<div class="container">
+	{% if user.is_authenticated %}
+		<div class="row">
+			<div class="col-12 col-sm-10 col-lg-8 text-center mx-auto">
+				<h1>You are already logged in</h1>
+				<p>Let's try going back to the <a href="{% url 'programming:programmingDashboard' %}">dashboard</a></p>
+			</div>
+		</div>
+	{% else %}
+		<div class="row">
+			<div class="col-12 col-md-10 col-lg-8 offset-md-1 offset-lg-2">
+				<h1 class="text-center">Login</h1>
+			</div>
+		</div>
+		{{ messages.all }}
+		{% if form.errors %}
+			{% for error in form.errors %}
+				<div class="row">
+					<div class="alert alert-danger col-8 mx-auto" role="alert">
+					{% if error == '__all__' %}{% for e in form.non_field_errors %}{{ e }}{% endfor %}{% else %}{{ error }}{% endif %}</div>
+				</div>
+			{% endfor %}
+		{% endif %}
+
+		{% if next %}
+			{% if next != "/" %}
+				<div class="row">
+					<div class="alert alert-warning col-8 mx-auto" role="alert">
+					{% if user.is_authenticated %}
+					  <p>Your account doesn't have access to this page.</p>
+					{% else %}
+					  <p>Please login to see this page.</p>
+					{% endif %}
+					</div>
+				</div>
+			{% endif %}
+		{% endif %}
+
+		<form method="post" action="{% url 'login' %}">
+			{% csrf_token %}
+			{% for field in form %}
+				<div class="row form-group">
+					<div class="col-lg-8 col-sm-10 col-12 mx-auto">
+						<div class="text-left text-primary">{{ field.label_tag|title }}</div>
+						{% render_field field class+="form-control" placeholder+=field.label %}
+					</div>
+				</div>
+			{% endfor %}
+			<div class="row my-2">
+				<div class="col-12 col-sm-10 col-lg-8 mx-auto">
+					<button type="submit" value="login" class="btn btn-primary btn-lg w-100">Login</button>
+					<input type="hidden" name="next" value="{{ next }}" />
+				</div>
+			</div>
+		</form>
+	 	<div class="row">
+			<div class="col-12 col-sm-10 col-lg-8 text-center mx-auto">
+				{% comment %}
+				<p><a href="{% url 'password_reset' %}">Forgotten your password?</a></p>
+				{% endcomment %}
+				<p>Don't have an account? <a href="{% url 'userRegister' %}">Sign up</a></p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12 col-sm-10 col-lg-8 text-center mx-auto small">
+				<p>Hint: For this demo version of the site, you may wish to try the following accounts:</p>
+				<p>volunteer / iloveparadise </p>
+				<p>company / iloveperforming </p>
+				<p>director / iamincharge </p>
+			</div>
+		</div>
+	{% endif %}
+</div>
+
+{% endblock %}
+

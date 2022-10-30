@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block page_title %}Application Form{% endblock %}
+
+{% block page_content %}
+<div class="container">
+	<div class="row">
+		<div class="col-12 col-lg-10 offset-lg-1">
+			<h1>Volunteer Application for {{ event }} for {{ user_profile }}</h1>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-12 col-lg-10 offset-lg-1">
+			{{ form.errors }}
+			<form method="post" action="">
+				{% csrf_token %}
+				<div class="row">
+					<div class="col-12">
+						<div class="card">
+							<div class="card-header">
+								<h2>Roles</h2>
+							</div>
+							<div class="card-body">
+								<div class="row">
+									<div class="col-12 col-lg-4 mb-4 mb-lg-2">
+										<div class="card">
+											<div class="card-header">
+												<h3>Roles you would like to do</h3>
+											</div>
+											<div class="card-body">
+												{% if form.roles_desired.errors %}<div class="alert alert-danger">{{ form.roles_desired.errors.as_ul }}</div>{% endif %}
+												{% for role in form.roles_desired %}
+													<div class="form-check">
+													  <input class="form-check-input" name="roles_desired" type="checkbox" value="{{ forloop.counter }}" id="role-desired-{{ forloop.counter }}" {% if role.data.selected %}checked{% endif %}>
+													  <label class="form-check-label" for="role-desired-{{ forloop.counter }}">
+													    {{ role.choice_label }}
+													  </label>
+													</div>
+												{% endfor %}
+											</div>
+										</div>
+									</div>
+									<div class="col-12 col-lg-4 mb-4 mb-lg-2">
+										<div class="card">
+											<div class="card-header">
+												<h3>Roles you would can do if needed</h3>
+											</div>
+											<div class="card-body">
+												{% if form.roles_willing.errors %}<div class="alert alert-danger">{{ form.roles_willing.errors.as_ul }}</div>{% endif %}
+												{% for role in form.roles_willing %}
+													<div class="form-check">
+													  <input class="form-check-input" name="roles_willing" type="checkbox" value="{{ forloop.counter }}" id="role-willing-{{ forloop.counter }}" {% if role.data.selected %}checked{% endif %}>
+													  <label class="form-check-label" for="role-willing-{{ forloop.counter }}">
+													    {{ role.choice_label }}
+													  </label>
+													</div>
+												{% endfor %}
+											</div>
+										</div>
+									</div>
+									<div class="col-12 col-lg-4 mb-4 mb-lg-2">
+										<div class="card">
+											<div class="card-header">
+												<h3>Roles you would <strong>not</strong> like to do</h3>
+											</div>
+											<div class="card-body">
+												{% if form.roles_declined.errors %}<div class="alert alert-danger">{{ form.roles_declined.errors.as_ul }}</div>{% endif %}
+												{% for role in form.roles_declined %}
+													<div class="form-check">
+													  <input class="form-check-input" name="roles_declined" type="checkbox" value="{{ forloop.counter }}" id="role-declined-{{ forloop.counter }}" {% if role.data.selected %}checked{% endif %}>
+													  <label class="form-check-label" for="role-declined-{{ forloop.counter }}">
+													    {{ role.choice_label }}
+													  </label>
+													</div>
+												{% endfor %}
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<hr>
+				<div class="row">
+					<div class="col-12">
+						<h3>Tell us a bit about yourself</h3>
+					</div>
+				</div>
+				<div class="row mb-2">
+					<div class="col-12 mx-auto">
+						{% if form.person_bio.errors %}<div class="alert alert-danger">{{ form.person_bio.errors.as_ul }}</div>{% endif %}
+						{% render_field form.person_bio class+="form-control" placeholder+=form.person_bio.label %}
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-12">
+						<h3>Which weeks are you available?</h3>
+					</div>
+				</div>
+				<div class="row mb-2">
+					<div class="col-12 mx-auto">
+						{% if form.weeks_available.errors %}<div class="alert alert-danger">{{ form.weeks_available.errors.as_ul }}</div>{% endif %}
+						{% for week in form.weeks_available %}
+							<div class="form-check">
+							  <input class="form-check-input" name="weeks_available" type="checkbox" value="{{ forloop.counter }}" id="week-{{ forloop.counter }}" {% if week.data.selected %}checked{% endif %}>
+							  <label class="form-check-label" for="week-{{ forloop.counter }}">
+							    {{ week.choice_label }}
+							  </label>
+							</div>
+						{% endfor %}
+					</div>
+				</div>
+
+				<div class="row my-4">
+					<div class="col-12 col-sm-10 col-lg-8 mx-auto">
+					<button type="submit" value="login" class="btn btn-primary btn-lg w-100">{% if form.instance.person %}Update{% else %}Submit{% endif %}</button>
+					<input type="hidden" name="next" value="{{ next }}" />
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

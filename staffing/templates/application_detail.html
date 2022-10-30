@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block page_title %}Application Form - {{ application.person }}{% endblock %}
+
+{% block page_content %}
+<div class="container">
+	<div class="row">
+		<div class="col-12 col-lg-10 offset-lg-1">
+			<h1>Application: {{ application }}</h1>
+			<p>Name: {{ application.person }}</p>
+			<p class="lead">About {{ application.person }}</p>
+			<p class="ms-4">{{ application.person_bio }}</p>
+			<hr>
+			<p class="lead">Roles</p>
+			<p>Selected management roles: {{ application.has_management_roles|yesno:"Yes,No" }}</p>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Roles Desired</th>
+						<th>Roles Willing</th>
+						<th>Roles Undesired</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>{{ application.roles_desired.all|join:", <br>" | default:"None" }}</td>
+						<td>{{ application.roles_willing.all|join:", <br>" | default:"None"}}</td>
+						<td>{{ application.roles_declined.all|join:", <br>" | default:"None"}}</td>
+					</tr>
+				</tbody>
+			</table>
+			<p class="lead">Availability</p>
+			<p>{{ application.weeks_available.all|join:"<br>" }}</p>
+		</div>
+	</div>
+	{% if user_is_director %}
+	<div class="row">
+		<div class="col-12 col-md-10 col-lg-8 offset-md-1 offset-lg-2">
+			{% if application.offer %}
+				<h3>Offer</h3>
+				{{ application.offer }}
+			{% else %}
+				<p class="text-center"><a class="btn btn-success w-75 btn-lg" href="{% url 'staffing:staffingApplicationOfferCreate' application.pk %}">Make an offer</a></p>
+			{% endif %}
+		</div>
+	</div>
+	{% endif %}
+
+	{% if form %}
+	<div class="row">
+			<form method="post" action="">
+				{% csrf_token %}
+				{% if create %}
+					<div class="d-none">{{ form.as_p }}</div>
+				{% else %}
+					{% for field in form %}
+						<div class="row form-group mb-2">
+							<div class="col-12 mx-auto">
+								<div class="text-left text-primary">Accept or reject using the menu below</div>
+								{% if field.errors %}<div class="alert alert-danger">{{ field.errors.as_ul }}</div>{% endif %}
+								{{ field.help_text }}
+								{% render_field field class+="form-control" placeholder+=field.label %}
+							</div>
+						</div>
+					{% endfor %}
+				{% endif %}
+
+				<div class="row my-2">
+					<div class="col-12 col-sm-10 col-lg-8 mx-auto">
+					<button type="submit" value="submit" class="btn btn-success btn-lg w-100">
+						{% if create %}Make the offer{% else %}Save{% endif %}</button>
+					<input type="hidden" name="next" value="{{ next }}" />
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	{% endif %}
+</div>
+
+{% endblock %}

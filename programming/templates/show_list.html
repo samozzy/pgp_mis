@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block page_title %}Shows for {{ event }}{% endblock %}
+
+{% block page_content %}
+
+<div class="container">
+	<div class="row">
+		<div class="col-12 col-md-10 col-lg-8 offset-md-1 offset-lg-2">
+			<h1>{% if user_profile.person_type == 'COMPY' %}Your shows{% else %}{{ page_heading |default:"Shows" }}{% endif %} for {{ event }}</h1>
+			<table class="table">
+				<thead>
+					<tr>
+						<td>Show name</td>
+						<td>Company</td>
+						<td>Status</td>
+						{% if user_is_director %}
+						<td>Make an offer</td>
+						{% endif %}
+					</tr>
+				</thead>
+				<tbody>
+				{% for show in shows %}
+					<tr>
+						<td><a href="{% url 'programming:programmingShowDetail' show.pk %}">{{ show.show_title }}</a></td>
+						<td>{{ show.company }}</td>
+						<td>{{ show.get_status_display }}</td>
+						{% if user_is_director %}
+						<td>
+							{% if show.get_slots and not show.offer %}
+								<a href="{% url 'programming:programmingSlotList' show.pk %}">Make an offer</a>
+							{% elif show.offer %}
+								<em>Slot offered</em>
+							{% else %}No slots{% endif %}</td>
+						{% endif %}
+					</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
