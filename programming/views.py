@@ -251,7 +251,7 @@ class OfferUpdateView(MISPermissionMixin, PermissionRequiredMixin, generic.Updat
 
 	def get_object(self, **kwargs):
 		try:
-			return Offer.objects.get(application=Application.objects.get(pk=self.kwargs['pk']))
+			return Offer.objects.get(show=Show.objects.get(pk=self.kwargs['pk']))
 		except:
 			messages.add_message(self.request, messages.ERROR, "There is no offer currently attached to this show.")
 			raise Http404
