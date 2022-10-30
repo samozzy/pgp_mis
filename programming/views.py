@@ -146,7 +146,7 @@ class ShowListPendingView(PermissionRequiredMixin, ShowListView):
 
 	def get_queryset(self, **kwargs):
 		qs = super(ShowListView, self).get_queryset()
-		return qs.filter(offer=None).filter(slot__isnull=False)
+		return qs.filter(offer=None).filter(slot__isnull=False).distinct() 
 
 	def get_context_data(self, **kwargs):
 		context = super(ShowListPendingView, self).get_context_data()
