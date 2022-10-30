@@ -17,7 +17,7 @@ from programming.mixins import MISPermissionMixin, get_user_profile
 
 # Views for the app and its models 
 
-class ApplicationFormView(MISPermissionMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):
+class ApplicationFormView(PermissionRequiredMixin, MISPermissionMixin, SuccessMessageMixin, CreateView):
 # passes test: can edit company (directors; company)
 	permission_required = ('staffing.add_application')
 	template_name = 'application_form.html'
