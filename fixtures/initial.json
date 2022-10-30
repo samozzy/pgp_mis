@@ -1,173 +1,5 @@
 [
 {
-  "model": "people.person",
-  "pk": 1,
-  "fields": {
-    "site_user": [
-      "will"
-    ],
-    "forename": "Will",
-    "surname": "Shake",
-    "middle_name": "",
-    "pronouns": "He / him",
-    "photo": "",
-    "medical_info": "",
-    "person_type": "COMPY",
-    "allergies": []
-  }
-},
-{
-  "model": "people.person",
-  "pk": 2,
-  "fields": {
-    "site_user": null,
-    "forename": "Christopher",
-    "surname": "Marlowe",
-    "middle_name": "",
-    "pronouns": "",
-    "photo": "",
-    "medical_info": "",
-    "person_type": "COMPY",
-    "allergies": []
-  }
-},
-{
-  "model": "people.person",
-  "pk": 3,
-  "fields": {
-    "site_user": [
-      "sam"
-    ],
-    "forename": "Sam",
-    "surname": "Osborne",
-    "middle_name": "",
-    "pronouns": "",
-    "photo": "",
-    "medical_info": "",
-    "person_type": "STAFF",
-    "allergies": []
-  }
-},
-{
-  "model": "people.person",
-  "pk": 5,
-  "fields": {
-    "site_user": [
-      "brobin"
-    ],
-    "forename": "Batman",
-    "surname": "Robin",
-    "middle_name": "",
-    "pronouns": "",
-    "photo": "",
-    "medical_info": "",
-    "person_type": "STAFF",
-    "allergies": []
-  }
-},
-{
-  "model": "people.person",
-  "pk": 6,
-  "fields": {
-    "site_user": [
-      "uperson"
-    ],
-    "forename": "Ursula",
-    "surname": "Person",
-    "middle_name": "",
-    "pronouns": "They / them",
-    "photo": "",
-    "medical_info": "",
-    "person_type": "COMPY",
-    "allergies": []
-  }
-},
-{
-  "model": "people.person",
-  "pk": 7,
-  "fields": {
-    "site_user": [
-      "volunteer"
-    ],
-    "forename": "Staff",
-    "surname": "Volunteer",
-    "middle_name": "",
-    "pronouns": "they/them",
-    "photo": "",
-    "medical_info": "",
-    "person_type": "STAFF",
-    "allergies": []
-  }
-},
-{
-  "model": "people.person",
-  "pk": 8,
-  "fields": {
-    "site_user": [
-      "director"
-    ],
-    "forename": "Paradise",
-    "surname": "Director",
-    "middle_name": "",
-    "pronouns": "she / her",
-    "photo": "",
-    "medical_info": "",
-    "person_type": "STAFF",
-    "allergies": []
-  }
-},
-{
-  "model": "people.person",
-  "pk": 9,
-  "fields": {
-    "site_user": [
-      "company"
-    ],
-    "forename": "Eric",
-    "surname": "Performer",
-    "middle_name": "The",
-    "pronouns": "he / him",
-    "photo": "",
-    "medical_info": "",
-    "person_type": "COMPY",
-    "allergies": []
-  }
-},
-{
-  "model": "people.person",
-  "pk": 10,
-  "fields": {
-    "site_user": [
-      "tperson"
-    ],
-    "forename": "Test",
-    "surname": "Person",
-    "middle_name": "",
-    "pronouns": "",
-    "photo": "",
-    "medical_info": "",
-    "person_type": "COMPY",
-    "allergies": []
-  }
-},
-{
-  "model": "people.person",
-  "pk": 11,
-  "fields": {
-    "site_user": [
-      "qtarantino"
-    ],
-    "forename": "Quentin",
-    "surname": "Tarantino",
-    "middle_name": "",
-    "pronouns": "",
-    "photo": "",
-    "medical_info": "",
-    "person_type": "STAFF",
-    "allergies": []
-  }
-},
-{
   "model": "people.personshow",
   "pk": 1,
   "fields": {
@@ -689,6 +521,386 @@
     "title": "Expenses",
     "link": "",
     "ordering": 3
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$260000$5yR4u9YOFm21mgCtAuFVcm$3lDMBxvT6bKbbvMYTIsnOnA3rD93MyuL1sPS665OFcg=",
+    "last_login": "2022-10-29T13:35:56.732Z",
+    "is_superuser": true,
+    "username": "sam",
+    "first_name": "",
+    "last_name": "",
+    "email": "sam@samosborne.me",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2022-10-20T23:46:48.958Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$260000$6K4dka2VzuY8pxs2bYm69f$nHmZw8Esqsj0xgBedGh1rTOMCwSDOwbyJ3TIzSt2jZk=",
+    "last_login": "2022-10-24T22:02:47.327Z",
+    "is_superuser": false,
+    "username": "will",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2022-10-21T00:35:35Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 24,
+  "fields": {
+    "password": "pbkdf2_sha256$260000$fsmBtf2Hseiiy0uiJyKBWd$5TgjuO1TvsMrY8aPWqc0pU11ZmyO4hGmGoyCpzgZWC8=",
+    "last_login": "2022-10-30T01:59:20.806Z",
+    "is_superuser": false,
+    "username": "brobin",
+    "first_name": "Batman",
+    "last_name": "Robin",
+    "email": "batman@example.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2022-10-27T20:55:00Z",
+    "groups": [
+      [
+        "volunteer"
+      ]
+    ],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 25,
+  "fields": {
+    "password": "pbkdf2_sha256$260000$4rk2iNtzwgGGiYBzLFgvBO$5UVNdemHzXnxuBe3coYE5dqqSZlTr5jk0sQzv1l/Lns=",
+    "last_login": "2022-10-29T23:26:53.895Z",
+    "is_superuser": false,
+    "username": "uperson",
+    "first_name": "Unknown",
+    "last_name": "Person",
+    "email": "un@example.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2022-10-27T22:05:00Z",
+    "groups": [
+      [
+        "company"
+      ]
+    ],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 26,
+  "fields": {
+    "password": "pbkdf2_sha256$260000$wkIwdtMOAqVSoXtODmIgZL$ul9o7TSueZLNWYi0CcbRIJiTy/ZBVs6wEnqxxp+LBLw=",
+    "last_login": "2022-10-28T18:39:00Z",
+    "is_superuser": false,
+    "username": "svolunteer",
+    "first_name": "Staff",
+    "last_name": "Volunteer",
+    "email": "volunteer@example.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2022-10-28T17:01:00Z",
+    "groups": [
+      [
+        "volunteer"
+      ]
+    ],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 27,
+  "fields": {
+    "password": "pbkdf2_sha256$260000$WdZYs17FdZFJBa3EcqIE7B$CEwrjlZ7DiCI8yQsBADP5wZzOpicsnz0EuY3xsrUpmw=",
+    "last_login": "2022-10-30T01:56:26.165Z",
+    "is_superuser": false,
+    "username": "volunteer",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2022-10-28T19:13:00Z",
+    "groups": [
+      [
+        "volunteer"
+      ]
+    ],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 28,
+  "fields": {
+    "password": "pbkdf2_sha256$260000$tG2OzBoR2DV5axXQj57q7Z$PVqVWm07Qk99XsXqf2XqRVMy8zv1gcDIowvWa6Ceagk=",
+    "last_login": "2022-10-29T23:59:32.328Z",
+    "is_superuser": false,
+    "username": "director",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2022-10-28T19:14:00Z",
+    "groups": [
+      [
+        "director"
+      ]
+    ],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 29,
+  "fields": {
+    "password": "pbkdf2_sha256$260000$pCzDF7yOjrVMWSLrPQhKPE$Cy4Tj8orjRhVKcdoMNjM5lY1GntnZQudZR+XHQKPZ/M=",
+    "last_login": "2022-10-29T23:09:53.477Z",
+    "is_superuser": false,
+    "username": "company",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2022-10-28T19:14:00Z",
+    "groups": [
+      [
+        "company"
+      ]
+    ],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 30,
+  "fields": {
+    "password": "pbkdf2_sha256$260000$5I2t5PUiC3fJutz4gRetII$l6awm2QymlT14Ax8BPFThxYX4QCCcLNuyvqUOj5fAps=",
+    "last_login": "2022-10-29T19:27:00Z",
+    "is_superuser": false,
+    "username": "tperson",
+    "first_name": "Test",
+    "last_name": "Person",
+    "email": "test@example.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2022-10-29T19:27:00Z",
+    "groups": [
+      [
+        "company"
+      ]
+    ],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 31,
+  "fields": {
+    "password": "pbkdf2_sha256$260000$qKs69rf9UwtP67tZYfHUkG$tEDEWiPfa2mPdRi/cys11Q01fAw39sQ5s2AOgaCR82k=",
+    "last_login": "2022-10-30T02:07:09.732Z",
+    "is_superuser": false,
+    "username": "qtarantino",
+    "first_name": "Quentin",
+    "last_name": "Tarantino",
+    "email": "quentin@tarantino.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2022-10-30T02:07:09.341Z",
+    "groups": [
+      [
+        "volunteer"
+      ]
+    ],
+    "user_permissions": []
+  }
+},
+{
+  "model": "people.person",
+  "pk": 1,
+  "fields": {
+    "site_user": [
+      "will"
+    ],
+    "forename": "Will",
+    "surname": "Shake",
+    "middle_name": "",
+    "pronouns": "He / him",
+    "photo": "",
+    "medical_info": "",
+    "person_type": "COMPY",
+    "allergies": []
+  }
+},
+{
+  "model": "people.person",
+  "pk": 2,
+  "fields": {
+    "site_user": null,
+    "forename": "Christopher",
+    "surname": "Marlowe",
+    "middle_name": "",
+    "pronouns": "",
+    "photo": "",
+    "medical_info": "",
+    "person_type": "COMPY",
+    "allergies": []
+  }
+},
+{
+  "model": "people.person",
+  "pk": 3,
+  "fields": {
+    "site_user": [
+      "sam"
+    ],
+    "forename": "Sam",
+    "surname": "Osborne",
+    "middle_name": "",
+    "pronouns": "",
+    "photo": "",
+    "medical_info": "",
+    "person_type": "STAFF",
+    "allergies": []
+  }
+},
+{
+  "model": "people.person",
+  "pk": 5,
+  "fields": {
+    "site_user": [
+      "brobin"
+    ],
+    "forename": "Batman",
+    "surname": "Robin",
+    "middle_name": "",
+    "pronouns": "",
+    "photo": "",
+    "medical_info": "",
+    "person_type": "STAFF",
+    "allergies": []
+  }
+},
+{
+  "model": "people.person",
+  "pk": 6,
+  "fields": {
+    "site_user": [
+      "uperson"
+    ],
+    "forename": "Ursula",
+    "surname": "Person",
+    "middle_name": "",
+    "pronouns": "They / them",
+    "photo": "",
+    "medical_info": "",
+    "person_type": "COMPY",
+    "allergies": []
+  }
+},
+{
+  "model": "people.person",
+  "pk": 7,
+  "fields": {
+    "site_user": [
+      "volunteer"
+    ],
+    "forename": "Staff",
+    "surname": "Volunteer",
+    "middle_name": "",
+    "pronouns": "they/them",
+    "photo": "",
+    "medical_info": "",
+    "person_type": "STAFF",
+    "allergies": []
+  }
+},
+{
+  "model": "people.person",
+  "pk": 8,
+  "fields": {
+    "site_user": [
+      "director"
+    ],
+    "forename": "Paradise",
+    "surname": "Director",
+    "middle_name": "",
+    "pronouns": "she / her",
+    "photo": "",
+    "medical_info": "",
+    "person_type": "STAFF",
+    "allergies": []
+  }
+},
+{
+  "model": "people.person",
+  "pk": 9,
+  "fields": {
+    "site_user": [
+      "company"
+    ],
+    "forename": "Eric",
+    "surname": "Performer",
+    "middle_name": "The",
+    "pronouns": "he / him",
+    "photo": "",
+    "medical_info": "",
+    "person_type": "COMPY",
+    "allergies": []
+  }
+},
+{
+  "model": "people.person",
+  "pk": 10,
+  "fields": {
+    "site_user": [
+      "tperson"
+    ],
+    "forename": "Test",
+    "surname": "Person",
+    "middle_name": "",
+    "pronouns": "",
+    "photo": "",
+    "medical_info": "",
+    "person_type": "COMPY",
+    "allergies": []
+  }
+},
+{
+  "model": "people.person",
+  "pk": 11,
+  "fields": {
+    "site_user": [
+      "qtarantino"
+    ],
+    "forename": "Quentin",
+    "surname": "Tarantino",
+    "middle_name": "",
+    "pronouns": "",
+    "photo": "",
+    "medical_info": "",
+    "person_type": "STAFF",
+    "allergies": []
   }
 }
 ]
