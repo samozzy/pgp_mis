@@ -130,7 +130,8 @@ class MISPermissionMixin(MISUserMixin, LoginRequiredMixin):
 					success = True 
 			elif app_name == 'staffing' and not user_is_director(self.request.user):
 				# Within the staffing app, much of the permissions are handled by director-only-ness. 
-				# However, staff need to be able to edit their applications and offers, so... 
+				# However, staff need to be able to edit their applications and offers, but not see other people's, so...
+				the_person = None 
 				the_object = None 
 				if hasattr(self, 'get_object'):
 					# If the page is relating to an object, we can use it directly
@@ -143,23 +144,28 @@ class MISPermissionMixin(MISUserMixin, LoginRequiredMixin):
 				if the_object:
 					if hasattr(the_object, 'person'): 
 						# If this is an object attached to a person (eg an Application), get the person
-						the_object = the_object.person 
+						the_person = the_object.person 
+					elif type(the_object).__name__ == 'Event':
+						# The initial application form returns Event.Application but isn't tied to a person
+						success = True 
 					elif hasattr(the_object, 'application'):
 						# Offers don't have a person, so we can get it through the Application
-						the_object = the_object.application.person 
+						the_person = the_object.application.person 
 					elif type(the_object).__name__ == 'Person':
 						# Confirm it is in fact a person before we try and do anything with it 
-						the_object = the_object
+						the_person = the_object
 					else:
 						# If we can't get a person out of the object, sack it off 
 						# (It still needs to exist though)
-						the_object = False
+						the_person = False
 						success = True 
-					if the_object and the_object == get_user_profile(self.request.user):
-						success = True 
-					else:
-						messages.add_message(self.request, messages.ERROR, "This relates to someone else's personal details, so you don't have access to it. Please get in touch if you think this is an error.")
-						raise PermissionDenied
+
+					if the_person:
+						if the_person == get_user_profile(self.request.user):
+							success = True 
+						else:
+							messages.add_message(self.request, messages.ERROR, "This relates to someone else's personal details, so you don't have access to it. Please get in touch if you think this is an error.")
+							raise PermissionDenied
 			else: 
 				if p.person_type != 'STAFF':
 					# If it's neither the programming or people apps, assume it's staff only and shoo everyone else away
