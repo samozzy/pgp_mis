@@ -26,6 +26,9 @@ class ApplicationFormView(MISPermissionMixin, PermissionRequiredMixin, SuccessMe
 	success_message = "Application submitted successfully"
 	model = Application 	
 
+	def get_object(self, **kwargs):
+		return Event.objects.get(pk=self.kwargs['pk'])
+
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data()
 		context['event'] = Event.objects.get(pk=self.kwargs['pk'])
